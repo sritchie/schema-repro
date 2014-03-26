@@ -6,6 +6,10 @@
 
 (u/clone-ns schema-error.types)
 
+(comment
+  "If I insert this call to `use` instead, everything works great:"
+  (use 'schema-error.types))
+
 (sm/defn describe-wobblies :- WobblyBits
   [n :- s/Int]
   (str n " Wobbly Bits!"))
