@@ -1,14 +1,21 @@
-# schema_error
+# Schema Error
 
-A Clojure library designed to ... well, that part is up to you.
+This repo recreates some strange behavior I'm seeing with Prismatic's schema library & AOT compilation. I wrote a `clone-ns` macro so that I could slowly start migrating my clj-only code over to cljx files in a different root without breaking all of my current imports. Each `clj` model calls `clone-ns` on its `cljx` counterpart.
+
+This works great in development mode at the repl, but fails when I try to deploy it into production. This project is a recreation of that issue.
 
 ## Usage
 
-FIXME
+I'm seeing this error under AOT compilation. To recreate, run the following command in the project root:
 
-## License
+```sh
+ lein uberjar && java -jar target/schema-standalone.jar 10
+```
 
-Copyright © 2014 FIXME
+The code DOES work if you clean, then run it with `lein run`:
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+```sh
+lein do clean, run 10
+```
+
+Note that if you run `lein run 10` directly after the `lein uberjar <etc>` command, the code fails with the same error.
